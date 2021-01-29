@@ -27,49 +27,51 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">DIV</a></li>
-        <li><a href="#">SPAN</a></li>
-        <li><a href="#">BUTTON</a></li>
+        <li><a href="#section1">DIV</a></li>
+        <li><a href="#section2">SPAN</a></li>
+        <li><a href="#section3">BUTTON</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
 <!-- First Container -->
-<div class="container-fluid bg-1 text-center">
+<div class="container-fluid bg-1 text-center" id = "section1">
   <img src="images/div.jpg" class="img-responsive img-circle margin" style="display:inline" alt="divPic" width="350" height="350">
   <h3>The div tag defines a division or a section in an HTML document. The div tag is used as a container for HTML elements - which is then 
       styled with CSS or manipulated with JavaScript. The div tag is easily styled by using the class or id attribute.</h3>
 </div>
 
 <!-- Second Container -->
-<div class="container-fluid bg-2 text-center">
-  <img src="images/span.jpg" class="img-responsive img-circle margin" style="display:inline" alt="spanPic" width="350" height="350">
+<div class="container-fluid bg-2 text-center" id = "section2">
+  <img src="images/span.jpg" class="img-responsive img-circle margin" style="display:inline" alt="spanPic" width="550" height="550">
   <h3>The span tag is an inline container used to mark up a part of a text, or a part of a document. 
 The span tag is easily styled by CSS or manipulated with JavaScript using the class or id attribute.
 The span tag is much like the div element, but div is a block-level element and span is an inline element.</h3>
 </div>
 
 <!-- Third Container (Grid) -->
-<div class="container-fluid bg-3 text-center">    
+<div class="container-fluid bg-3 text-center" id = "section3">    
   <img src="images/button.jpg" class="img-responsive img-circle margin" style="display:inline" alt="buttonPic" width="350" height="350">
-  <h3>The button tag defines a clickable button. Inside a button element you can put text (and tags like i, b, strong>, br>, img>, etc.). 
-      That is not possible with a button created with the input element!</h3>
+  <h3>The &lt;button&gt; tag defines a clickable button. Inside a &lt;button&gt; element you can put text (and tags like &lt;i&gt;, &lt;b&gt;, &lt;strong&gt;, &lt;br&gt;, &lt;img&gt;, etc.). 
+      That is not possible with a button created with the &lt;input&gt; element!</h3>
   <div class="row">
+    <div class="col-sm-4" id = "grad">
+      <h3>Gradient</h3>
+    </div>
+    <div class="col-sm-4"> 
+      <h3>Entities</h3>
+      <img src="images/Entities.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+      <p>If you use the less than (<) or greater than (>) signs in your text, the browser might mix them with tags.
+            Character entities are used to display reserved characters in HTML. Examples: &lt;div&gt;, &copy;, &reg;</p>
+    </div>
     <div class="col-sm-4">
-      <p>Empty Cells</p>
-      <img src="emptyCells.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-4"> 
-      <p>Border Keyword Values</p>
-      <img src="keywordValues.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-4"> 
-      <p>Text Fonts</p>
-      <img src="textFonts.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+      <h3>Smooth scrolling.Try clicking the nav buttons on top of the page!</h3>
     </div>
   </div>
 </div>
+
+
 
 <!-- Footer -->
 <footer class="container-fluid bg-4 text-center">
