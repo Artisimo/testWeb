@@ -1,0 +1,51 @@
+body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+    .bg-1 { 
+    background-color: #85929E; /* Green */
+    color: #5DADE2;
+  }
+  .bg-2 { 
+    background-color: #5D6D7E; /* Dark Blue */
+    color: #5DADE2;
+  }
+  .bg-3 { 
+    background-color:#2E4053 ; /* White */
+    color: #5DADE2;
+  }
+  .bg-4 { 
+    background-color: #2f2f2f; /* Black Gray */
+    color: #ffffff;
+  }
+  .container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  
+  #grad{
+      background-image: linear-gradient(to right, blue , purple);
+      height: 900px;
+  }
+  
+  html {
+  scroll-behavior: smooth;
+}
+
+
+  
+  .navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+    color: #1abc9c !important;
+  }
