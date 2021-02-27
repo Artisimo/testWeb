@@ -1,54 +1,115 @@
 <html>
     <head>
+        <link rel="stylesheet" href="css/atminasSpelesStils.css">
         <title>Atminas spele</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <style>
-            .row{
-                float: left;
-                width: 100px;
+        <script language="javascript">
+            function changeImage(divId){
+                var cell = document.getElementById(divId);
+                cell.innerText = "aaaa";
             }
-            .gridsquare{
-                float: left;
-                width: 100px;
-                height: 100px;
-                background: aqua;
-                text-align: center;
-                border: 1px solid green;
-                text-align: center;
-                vertical-align: middle;
-                line-height: 100px;
-            }
-                .gridsquare:hover{
-                background-color: yellow;
-            }
-        </style>
+        </script>
+        
+        
         
         <script language="javascript"> 
+                      
             function genDivs(v){ 
-              var e = document.body; // whatever you want to append the rows to: 
-              for(var i = 0; i < v; i++){ 
-                var row = document.createElement("div"); 
-                row.className = "row";
-                for(var x = 1; x <= v; x++){ 
+                fillUpArray();
+               
+                var e = document.body; // whatever you want to append the rows to: 
+                for(var i = 0; i < v; i++){ 
+                    var row = document.createElement("div"); 
+                    row.className = "row";
+                    for(var x = 1; x <= v; x++){ 
                     var cell = document.createElement("div"); 
                     cell.className = "gridsquare"; 
                     cell.innerText = (i * v) + x;
+                    cell.id = "div" + ((i * v) + x);
+                    cell.setAttribute("onClick", "changeImage(this.id)");
                     row.appendChild(cell); 
                 } 
                 e.appendChild(row); 
               } 
-              document.getElementById("code").innerText = e.innerHTML;
-
-            }
+              //document.getElementById("code").innerText = e.innerHTML;
+              }
+            
           </script> 
+          
+        <script language = "javascript">
+            
+            function fillUpArray(){
+            
+                var v = 4;
+                
+                var rutinuSkaits = (v * v);
+                
+                var informacija = new Array(rutinuSkaits);   // index ir rūtinas kārtas nr, vērtība ir skaitlis, kas redzams uzkliksķinot uz rūtiņas
+
+                for (var i = 0; i < informacija.length; i++) {
+                    informacija[i] = 0;
+                    //console.log("sheit");
+                } 
+
+                for (var i = 0; i < (informacija.length / 2) + 1; i++) {
+                    
+                    var i = 1;
+                    var pirmaAtrasanasVieta = getRandomInt(1, v); // atgriez random int no 1 lidz v
+                    var otraAtrasanasVieta = getRandomInt(1, v); // atgriez random int no 1 lidz v
+
+                    while(pirmaAtrasanasVieta === otraAtrasanasVieta){
+                        pirmaAtrasanasVieta = getRandomInt(1, v); 
+                        otraAtrasanasVieta = getRandomInt(1, v); 
+                    }
+
+                    if (informacija[pirmaAtrasanasVieta] === 0) {
+                        //console.log(pirmaAtrasanasVieta);
+                        informacija[pirmaAtrasanasVieta] = i;     
+                    }
+                    else{
+                        while(informacija[pirmaAtrasanasVieta] !== 0){
+                            pirmaAtrasanasVieta += 1 % rutinuSkaits;
+                            console.log("pirmais whilee loops");
+                        }
+                        
+                        informacija[pirmaAtrasanasVieta] = i;
+                        console.log(informacija[pirmaAtrasanasVieta]);
+                    }
+
+                    if (informacija[otraAtrasanasVieta] === 0) {
+                        //console.log(otraAtrasanasVieta);
+                        informacija[otraAtrasanasVieta] = i;
+                    }
+                    else{
+                        while(informacija[otraAtrasanasVieta] !== 0){
+                            otraAtrasanasVieta -= 1 % rutinuSkaits;
+                            console.log("otrais whilee loops");
+                        }
+                        
+                        informacija[otraAtrasanasVieta] = i;
+                    }
+                }
+                console.log(informacija);
+                
+            }
+        </script>
         
+        <script language = "javascript">
+            function getRandomInt(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+        </script>
+
     </head>
     <body>
         <a href= "index.html">index</a>
         <div id = "spelesNosacijumi">
-            <input type="button" onclick="genDivs(6)" value="zīmēt režģi">
+            <input type="button" onclick="genDivs(4)" value="zīmēt režģi">
         <div>
     </body>
 </html>

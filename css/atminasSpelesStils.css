@@ -1,0 +1,21 @@
+.row{
+    float: left;
+    width: 100px;
+}
+
+.gridsquare{
+    float: left;
+    width: 100px;
+    height: 100px;
+    background: aqua;
+    text-align: center;
+    border: 1px solid green;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100px;
+}
+
+.gridsquare:hover{
+    background-color: yellow;
+}
+
