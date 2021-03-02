@@ -6,16 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <script language="javascript"> 
-            
-            var v = 4;
+                    
+            var v = 2;
             
             var rutinuSkaits = (v * v);
             
             var informacija = new Array(rutinuSkaits);// index ir rūtinas kārtas nr, vērtība ir skaitlis, kas redzams uzkliksķinot uz rūtiņas
             
             fillUpArray(v);
-            
-            console.log(informacija);
             
             var valueOfPreviousCell;
             
@@ -24,6 +22,10 @@
             var idOfPreviousCell;
             
             var clickNr = 0;
+            
+            var startTime;
+            
+            var atminetasRutinas = 0;
             
             function fillUpArray(v){
 
@@ -102,8 +104,13 @@
             }
             
             function changeImage(divId){
-                var cell = document.getElementById(divId);
                 
+                if (clickNr === 1) {
+                    startTime = new Date().getSeconds();
+                }
+                
+                var cell = document.getElementById(divId);
+                cell.onclick = null;
                 clickNr++;
                 console.log(clickNr);
                 
@@ -116,14 +123,20 @@
                 else{
                     console.log(valueOfPreviousCell + " " +informacija[divId - 1]);
                     cell.innerText = informacija[divId - 1];
+                    var previousCell = document.getElementById(idOfPreviousCell);
                     if (valueOfPreviousCell !== informacija[divId - 1]) {
-                        var previousCell = document.getElementById(idOfPreviousCell);
-                        setTimeout(clearCells, 1000, idOfPreviousCell, cell.id);
-                        //previousCell.innerText = "";
-                        //cell.innerText = "";
+                        cell.setAttribute("onclick", "changeImage(this.id);");
+                        setOnclickAttributeToCellById(idOfPreviousCell);
+                        setTimeout(clearCells, 500, idOfPreviousCell, cell.id);
                     }
                     else{
+                        atminetasRutinas += 2;
                         cell.innerText = informacija[divId - 1];
+                        cell.onclick = "";
+                        previousCell.onclick = "";
+                        if (atminetasRutinas === rutinuSkaits) {
+                            setTimeout(uzvarejisAlert, 300);
+                        }
                     }
                 }
             }
@@ -135,12 +148,30 @@
                 thisCell.innerText = "";
                 previousCell.innerText = "";
             }
+            
+            function uzvarejisAlert(){
+                
+                var beiguLaiks = new Date().getSeconds();
+                var pateretaisLaiks = (beiguLaiks - startTime);
+                alert("Tu esi uzvarējis! Tu to izdarīji " + clickNr + " klikšķos! Tev tas aizņēma " + pateretaisLaiks + " sekundes!");
+                if (window.confirm("Want to play again?")) {
+                        location.reload();
+                }
+                else{
+                    window.close();
+                }
+            }
+            
+            function setOnclickAttributeToCellById(cellId){
+                document.getElementById(cellId).setAttribute("onclick", "changeImage(this.id);");
+            }
+            
           </script> 
     </head>
     <body>
-        <a href= "index.html">index</a>
-        <div id = "spelesNosacijumi">
-            <input type="button" onclick="genDivs(4)" value="zīmēt režģi">
         <div>
+            <a href= "index.html">index</a>
+            <button onclick = "genDivs(v);"> zīmē</button>
+        </div>
     </body>
 </html>
