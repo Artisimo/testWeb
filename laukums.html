@@ -1,54 +1,209 @@
 <html>
     <head>
+        <link rel="stylesheet" href="css/atminasSpelesStils.css">
         <title>Atminas spele</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <style>
-            .row{
-                float: left;
-                width: 100px;
-            }
-            .gridsquare{
-                float: left;
-                width: 100px;
-                height: 100px;
-                background: aqua;
-                text-align: center;
-                border: 1px solid green;
-                text-align: center;
-                vertical-align: middle;
-                line-height: 100px;
-            }
-                .gridsquare:hover{
-                background-color: yellow;
-            }
-        </style>
-        
         <script language="javascript"> 
-            function genDivs(v){ 
-              var e = document.body; // whatever you want to append the rows to: 
-              for(var i = 0; i < v; i++){ 
-                var row = document.createElement("div"); 
-                row.className = "row";
-                for(var x = 1; x <= v; x++){ 
-                    var cell = document.createElement("div"); 
-                    cell.className = "gridsquare"; 
-                    cell.innerText = (i * v) + x;
-                    row.appendChild(cell); 
-                } 
-                e.appendChild(row); 
-              } 
-              document.getElementById("code").innerText = e.innerHTML;
+            
+            var v;
+            
+            var informacija = new Array();
+            
+            var rutinuSkaits;
+            
+            function setN(){
+                
+                if (document.getElementById('r1').checked) {
+                   v = document.getElementById('r1').value;
+                   generatePlayingGrid(v);
+                   hideDiffChoice();
+                }
+                else if(document.getElementById('r2').checked){
+                   v = document.getElementById('r2').value;
+                   generatePlayingGrid(v);
+                   hideDiffChoice();
+                }
+                else if(document.getElementById('r3').checked){
+                   v = document.getElementById('r3').value;
+                   generatePlayingGrid(v);
+                   hideDiffChoice();
+                }
+            }
+            
+            function generatePlayingGrid(v){
+                rutinuSkaits = v*v;
+                informacija = new Array(v * v);
+                fillUpArray(v);
+                genDivs(v);
+            }
+            
+            function hideDiffChoice(){
+                var e = document.getElementById("diff");
+                e.style.display = "none";
+            }
+            
+            var valueOfPreviousCell;
+            
+            var indexOfPreviousCell;
+            
+            var idOfPreviousCell;
+            
+            var clickNr = 0;
+            
+            var startTime;
+            
+            var atminetasRutinas = 0;
+            
+            
+            function fillUpArray(v){
 
+                for (var i = 0; i < informacija.length; i++) { // inicializē
+                    informacija[i] = 0;
+                } 
+
+                var value = 1;
+                
+                for (var i = 0; i < (informacija.length / 2); i++) {
+                    
+                    
+                    var pirmaAtrasanasVieta = getRandomInt(0, rutinuSkaits - 1); // atgriez random int no 1 lidz rutinuSkaitam. -1, jo indexi sākas ar 0
+                    var otraAtrasanasVieta = getRandomInt(0, rutinuSkaits - 1); 
+
+                    while(pirmaAtrasanasVieta === otraAtrasanasVieta){
+                        pirmaAtrasanasVieta = getRandomInt(0, rutinuSkaits - 1); 
+                        otraAtrasanasVieta = getRandomInt(0, rutinuSkaits - 1); 
+                    }
+
+                    if (informacija[pirmaAtrasanasVieta] === 0) {
+                        informacija[pirmaAtrasanasVieta] = value;
+                    }
+                    else{
+                        while(informacija[pirmaAtrasanasVieta] !== 0){
+                            pirmaAtrasanasVieta = (pirmaAtrasanasVieta + 1) % rutinuSkaits;
+                        }
+                        informacija[pirmaAtrasanasVieta] = value;
+                    }
+
+                    if (informacija[otraAtrasanasVieta] === 0) {
+                        informacija[otraAtrasanasVieta] = value;
+                    }
+                    else{
+                        while(informacija[otraAtrasanasVieta] !== 0){
+                            otraAtrasanasVieta = (otraAtrasanasVieta +  1) % rutinuSkaits;
+                        }
+                        informacija[otraAtrasanasVieta] = value;
+                    }
+                    value++;
+                }
+                return informacija;
+                console.log(informacija);
+            }
+                      
+            function genDivs(v){ 
+               
+               var div = document.getElementById("laukums");
+
+               
+                var e = document.body; // whatever you want to append the rows to: 
+                for(var i = 0; i < v; i++){ 
+                    var row = document.createElement("div"); 
+                    row.className = "row";
+                    for(var x = 1; x <= v; x++){ 
+                        var cell = document.createElement("div");
+                        cell.className = "gridsquare"; 
+                        //cell.innerText = informacija[((i * v) + x) - 1];
+                        cell.id = ((i * v) + x);
+                        cell.setAttribute("onClick", "changeImage(this.id);");
+                        row.appendChild(cell); 
+                    } 
+                    e.appendChild(row); 
+                } 
+              }
+              
+              function getRandomInt(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            function changeImage(divId){
+                
+                if (clickNr === 1) {
+                    startTime = new Date().getSeconds();
+                }
+                
+                var cell = document.getElementById(divId);
+                cell.onclick = null;
+                clickNr++;
+                console.log(clickNr);
+                
+                if ((clickNr % 2) !== 0) {
+                    cell.innerText = informacija[divId - 1];
+                    valueOfPreviousCell = informacija[divId - 1];
+                    indexOfPreviousCell = divId - 1;
+                    idOfPreviousCell = cell.id;
+                }
+                else{
+                    console.log(valueOfPreviousCell + " " +informacija[divId - 1]);
+                    cell.innerText = informacija[divId - 1];
+                    var previousCell = document.getElementById(idOfPreviousCell);
+                    if (valueOfPreviousCell !== informacija[divId - 1]) {
+                        cell.setAttribute("onclick", "changeImage(this.id);");
+                        setOnclickAttributeToCellById(idOfPreviousCell);
+                        setTimeout(clearCells, 500, idOfPreviousCell, cell.id);
+                    }
+                    else{
+                        atminetasRutinas += 2;
+                        cell.innerText = informacija[divId - 1];
+                        cell.onclick = "";
+                        previousCell.onclick = "";
+                        if (atminetasRutinas === rutinuSkaits) {
+                            setTimeout(uzvarejisAlert, 300);
+                        }
+                    }
+                }
+            }
+            
+            function clearCells(firstCellId, secondCellId){
+                var thisCell = document.getElementById(secondCellId);
+                var previousCell = document.getElementById(firstCellId);
+                
+                thisCell.innerText = "";
+                previousCell.innerText = "";
+            }
+            
+            function uzvarejisAlert(){
+                
+                var beiguLaiks = new Date().getSeconds();
+                var pateretaisLaiks = (beiguLaiks - startTime);
+                alert("Tu esi uzvarējis! Tu to izdarīji " + clickNr + " klikšķos! Tev tas aizņēma " + pateretaisLaiks + " sekundes!");
+                if (window.confirm("Want to play again?")) {
+                        location.reload();
+                }
+                else{
+                    window.close();
+                }
+            }
+            
+            function setOnclickAttributeToCellById(cellId){
+                document.getElementById(cellId).setAttribute("onclick", "changeImage(this.id);");
             }
           </script> 
-        
     </head>
     <body>
-        <a href= "index.html">index</a>
-        <div id = "spelesNosacijumi">
-            <input type="button" onclick="genDivs(6)" value="zīmēt režģi">
-        <div>
+        <h1>Atmiņas spēle</h1>
+        <div id="diff">
+            <div id = "child">
+                <input type="radio" id="r1" name="rate" value="2"> Easy
+                <input type="radio" id="r2" name="rate" value="4"> Medium
+                <input type="radio" id="r3" name="rate" value="6"> Hard  
+                <button onclick = "setN();"> spēlēt</button>
+            </div>
+          </div>
+        <div id = "laukums">
+            
+        </div>
     </body>
 </html>
