@@ -1,10 +1,11 @@
 .row{
     float: left;
     width: 100px;
+    display:block;
 }
 
 .gridsquare{
-    float: left;
+    margin: auto;
     width: 100px;
     height: 100px;
     background: aqua;
@@ -13,9 +14,28 @@
     text-align: center;
     vertical-align: middle;
     line-height: 100px;
+    display:block;
+}
+
+.button{
+    margin: auto;
 }
 
 .gridsquare:hover{
     background-color: yellow;
 }
 
+h1{
+    text-align: center;
+}
+
+#diff{
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+
+body{
+    background-color: lightgray;
+}

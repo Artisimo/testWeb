@@ -6,14 +6,43 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <script language="javascript"> 
-                    
-            var v = 2;
             
-            var rutinuSkaits = (v * v);
+            var v;
             
-            var informacija = new Array(rutinuSkaits);// index ir rūtinas kārtas nr, vērtība ir skaitlis, kas redzams uzkliksķinot uz rūtiņas
+            var informacija = new Array();
             
-            fillUpArray(v);
+            var rutinuSkaits;
+            
+            function setN(){
+                
+                if (document.getElementById('r1').checked) {
+                   v = document.getElementById('r1').value;
+                   generatePlayingGrid(v);
+                   hideDiffChoice();
+                }
+                else if(document.getElementById('r2').checked){
+                   v = document.getElementById('r2').value;
+                   generatePlayingGrid(v);
+                   hideDiffChoice();
+                }
+                else if(document.getElementById('r3').checked){
+                   v = document.getElementById('r3').value;
+                   generatePlayingGrid(v);
+                   hideDiffChoice();
+                }
+            }
+            
+            function generatePlayingGrid(v){
+                rutinuSkaits = v*v;
+                informacija = new Array(v * v);
+                fillUpArray(v);
+                genDivs(v);
+            }
+            
+            function hideDiffChoice(){
+                var e = document.getElementById("diff");
+                e.style.display = "none";
+            }
             
             var valueOfPreviousCell;
             
@@ -26,6 +55,7 @@
             var startTime;
             
             var atminetasRutinas = 0;
+            
             
             function fillUpArray(v){
 
@@ -48,29 +78,22 @@
 
                     if (informacija[pirmaAtrasanasVieta] === 0) {
                         informacija[pirmaAtrasanasVieta] = value;
-                        //console.log("uzsetoju pirmo rutinu bez iešanas" + " " + pirmaAtrasanasVieta);
                     }
                     else{
                         while(informacija[pirmaAtrasanasVieta] !== 0){
                             pirmaAtrasanasVieta = (pirmaAtrasanasVieta + 1) % rutinuSkaits;
                         }
                         informacija[pirmaAtrasanasVieta] = value;
-                        //console.log("uzsetoju pirmo rutinu ar iešanau" + " " + pirmaAtrasanasVieta);
                     }
 
                     if (informacija[otraAtrasanasVieta] === 0) {
-                        //console.log("gribu likt bez iešanas" + otraAtrasanasVieta);
                         informacija[otraAtrasanasVieta] = value;
-                        //console.log("uzsetoju otro rutinu bez iešanas" + " " + otraAtrasanasVieta);
                     }
                     else{
                         while(informacija[otraAtrasanasVieta] !== 0){
-                           // console.log("es esmu iesprudis")
                             otraAtrasanasVieta = (otraAtrasanasVieta +  1) % rutinuSkaits;
                         }
-                        //console.log("gribu likt ar iešanu" + otraAtrasanasVieta);
                         informacija[otraAtrasanasVieta] = value;
-                        //console.log("uzsetoju otro rutinu ar iešanu" + " " + otraAtrasanasVieta);
                     }
                     value++;
                 }
@@ -80,12 +103,15 @@
                       
             function genDivs(v){ 
                
+               var div = document.getElementById("laukums");
+
+               
                 var e = document.body; // whatever you want to append the rows to: 
                 for(var i = 0; i < v; i++){ 
                     var row = document.createElement("div"); 
                     row.className = "row";
                     for(var x = 1; x <= v; x++){ 
-                        var cell = document.createElement("div"); 
+                        var cell = document.createElement("div");
                         cell.className = "gridsquare"; 
                         //cell.innerText = informacija[((i * v) + x) - 1];
                         cell.id = ((i * v) + x);
@@ -94,7 +120,6 @@
                     } 
                     e.appendChild(row); 
                 } 
-              //document.getElementById("code").innerText = e.innerHTML;
               }
               
               function getRandomInt(min, max) {
@@ -165,13 +190,20 @@
             function setOnclickAttributeToCellById(cellId){
                 document.getElementById(cellId).setAttribute("onclick", "changeImage(this.id);");
             }
-            
           </script> 
     </head>
     <body>
-        <div>
-            <a href= "index.html">index</a>
-            <button onclick = "genDivs(v);"> zīmē</button>
+        <h1>Atmiņas spēle</h1>
+        <div id="diff">
+            <div id = "child">
+                <input type="radio" id="r1" name="rate" value="2"> Easy
+                <input type="radio" id="r2" name="rate" value="4"> Medium
+                <input type="radio" id="r3" name="rate" value="6"> Hard  
+                <button onclick = "setN();"> spēlēt</button>
+            </div>
+          </div>
+        <div id = "laukums">
+            
         </div>
     </body>
 </html>
