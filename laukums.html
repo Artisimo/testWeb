@@ -103,10 +103,7 @@
                       
             function genDivs(v){ 
                
-               var div = document.getElementById("laukums");
-
-               
-                var e = document.body; // whatever you want to append the rows to: 
+                var e = document.getElementById("laukums"); // whatever you want to append the rows to: 
                 for(var i = 0; i < v; i++){ 
                     var row = document.createElement("div"); 
                     row.className = "row";
@@ -190,6 +187,14 @@
             function setOnclickAttributeToCellById(cellId){
                 document.getElementById(cellId).setAttribute("onclick", "changeImage(this.id);");
             }
+           
+           function showTryAgainButton(){
+               var x = document.getElementById("tryAgain");
+               
+               if (x.style.display === "none") {
+                x.style.display = "block";
+              }
+           }
           </script> 
     </head>
     <body>
@@ -199,11 +204,13 @@
                 <input type="radio" id="r1" name="rate" value="2"> Easy
                 <input type="radio" id="r2" name="rate" value="4"> Medium
                 <input type="radio" id="r3" name="rate" value="6"> Hard  
-                <button onclick = "setN();"> spēlēt</button>
+                <button onclick = "setN(); showTryAgainButton();"> spēlēt</button>
             </div>
           </div>
-        <div id = "laukums">
-            
+        <div id= "laukumaDiv">
+            <div id = "laukums"></div>
         </div>
+        <div id ="tryAgain" onclick = "window.location.reload();" style="display: none"><span>Mēģināt vēlreiz!</span></div>
+        
     </body>
 </html>
