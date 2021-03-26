@@ -39,3 +39,28 @@ h1{
 body{
     background-color: lightgray;
 }
+
+#laukumaDiv {
+    text-align: center;
+
+}
+#laukums {
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+#tryAgain{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    
+}
+
+#tryAgain span{
+    border: 1px solid darkorange;
+}
+
+#tryAgain span:hover{
+    background-color: white;
+}
